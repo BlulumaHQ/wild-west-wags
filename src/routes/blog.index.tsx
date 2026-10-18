@@ -32,7 +32,7 @@ function Header() {
 
 function BlogSkeleton() {
   return (
-    <section className="mx-auto max-w-7xl px-5 py-16 lg:px-10 lg:py-24" aria-busy="true">
+    <section className="mx-auto max-w-[1320px] px-5 pb-24 pt-36 lg:px-10 lg:pb-32 lg:pt-44" aria-busy="true">
       <Header />
       <p className="sr-only">Loading Blog…</p>
       <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
@@ -51,12 +51,12 @@ function BlogSkeleton() {
 function Card({ p }: { p: PostSummary }) {
   return (
     <article className="group">
-      <Link to="/blog/$slug" params={{ slug: p.slug }} className="block overflow-hidden rounded">
+      <Link to="/blog/$slug" params={{ slug: p.slug }} className="block overflow-hidden">
         {p.image ? (
           <img src={p.image.url} alt={p.image.alt} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-[1.03]" />
         ) : (
-          <div className="flex aspect-[4/3] items-end bg-primary p-6 text-primary-foreground">
-            <span className="font-display text-2xl opacity-80">Wild West Wags</span>
+          <div className="flex aspect-[4/3] items-end bg-secondary p-6">
+            <span className="font-display text-xl font-semibold text-primary">Wild West Wags</span>
           </div>
         )}
       </Link>
@@ -78,7 +78,7 @@ function Blog() {
   const { page = 1 } = Route.useSearch();
   const router = useRouter();
   return (
-    <section className="mx-auto max-w-7xl px-5 py-16 lg:px-10 lg:py-24">
+    <section className="mx-auto max-w-[1320px] px-5 pb-24 pt-36 lg:px-10 lg:pb-32 lg:pt-44">
       <Header />
       {error ? (
         <div className="mt-14 border-t pt-10">
