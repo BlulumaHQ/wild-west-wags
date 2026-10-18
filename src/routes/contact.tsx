@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
+import { Instagram } from "lucide-react";
 import portrait from "@/assets/kt-32.webp.asset.json";
 import { pageHead, SITE } from "@/lib/site";
 import { sendInquiry } from "@/lib/contact.functions";
@@ -42,31 +43,39 @@ function Contact() {
   }
 
   return (
-    <section className="mx-auto grid max-w-7xl gap-14 px-5 py-16 lg:grid-cols-12 lg:gap-16 lg:px-10 lg:py-24">
+    <section className="mx-auto grid max-w-[1320px] gap-14 px-5 pb-24 pt-36 lg:grid-cols-12 lg:gap-16 lg:px-10 lg:pb-32 lg:pt-44">
       <div className="lg:col-span-5">
         <p className="eyebrow text-primary">Contact</p>
-        <h1 className="mt-5 text-[2.6rem] text-primary lg:text-6xl">Let’s talk about your dog.</h1>
-        <p className="mt-6">Tell us a little about your dog, what you would like to work on and the kind of support you are looking for.</p>
-        <p className="mt-4">Send a message and Wild West Wags will follow up to discuss the next step.</p>
-        <address className="mt-10 space-y-1 border-t pt-8 not-italic">
-          <p className="font-display text-xl">Wild West Wags</p>
+        <h1 className="mt-5 text-[2.6rem] lg:text-6xl">Let’s talk about your dog.</h1>
+        <p className="mt-6 text-muted-foreground">
+          Tell us a little about your dog, what you would like to work on and the kind of support you are looking for.
+        </p>
+        <p className="mt-4 text-muted-foreground">Send a message and Wild West Wags will follow up to discuss the next step.</p>
+        <address className="mt-10 space-y-1.5 border-t pt-8 not-italic">
+          <p className="font-display text-xl font-semibold">Wild West Wags</p>
           <p className="text-muted-foreground">North Vancouver, BC</p>
-          <a href={SITE.tel} className="block pt-3 hover:text-primary">{SITE.phone}</a>
-          <a href={`mailto:${SITE.email}`} className="block break-all hover:text-primary">{SITE.email}</a>
-          <a href={SITE.instagram} target="_blank" rel="noopener noreferrer" className="block hover:text-primary">
-            Instagram: {SITE.handle}
+          <a href={SITE.tel} className="block pt-3 transition hover:text-primary">{SITE.phone}</a>
+          <a href={`mailto:${SITE.email}`} className="block break-all transition hover:text-primary">{SITE.email}</a>
+          <a
+            href={SITE.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 transition hover:text-primary"
+          >
+            <Instagram className="h-4 w-4 text-primary" aria-hidden />
+            {SITE.handle}
           </a>
         </address>
-        <img src={portrait.url} alt="Kelsey standing outdoors with Trigger at her side" loading="lazy" className="mt-10 hidden aspect-[4/5] w-full rounded object-cover lg:block" />
+        <img src={portrait.url} alt="Kelsey standing outdoors with Trigger at her side" loading="lazy" className="mt-10 hidden aspect-[4/5] w-full object-cover lg:block" />
       </div>
 
       <div className="lg:col-span-7">
         {state === "ok" ? (
-          <div role="status" className="border-l-2 border-primary bg-card p-8">
-            <p className="font-display text-2xl text-primary">Thanks for getting in touch. Your message has been sent to Wild West Wags.</p>
+          <div role="status" className="border-l-2 border-primary bg-secondary p-8">
+            <p className="font-display text-2xl font-semibold">Thanks for getting in touch. Your message has been sent to Wild West Wags.</p>
           </div>
         ) : (
-          <form onSubmit={onSubmit} className="space-y-6 bg-card p-6 sm:p-10" noValidate={false}>
+          <form onSubmit={onSubmit} className="space-y-6 border bg-card p-6 sm:p-10" noValidate={false}>
             <div className="grid gap-6 sm:grid-cols-2">
               <Field id="name" label="Your Name" required />
               <Field id="email" label="Email Address" required>
