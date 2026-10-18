@@ -38,7 +38,7 @@ export function Header() {
           <img
             src={logo}
             alt="Wild West Wags logo"
-            className={`h-16 w-auto lg:h-20 ${transparent ? "brightness-0 invert" : ""}`}
+            className="h-16 w-auto lg:h-20"
           />
         </Link>
         <nav aria-label="Main" className="hidden md:block">
