@@ -1,6 +1,6 @@
-import { Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Instagram, Menu, X } from "lucide-react";
 import logo from "@/assets/logo.svg";
 import { SITE } from "@/lib/site";
 
@@ -9,31 +9,67 @@ const NAV = [
   { to: "/about", label: "About" },
   { to: "/services", label: "Services + Pricing" },
   { to: "/blog", label: "Blog" },
-  { to: "/contact", label: "Contact" },
 ] as const;
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const onHome = pathname === "/";
+  const transparent = onHome && !scrolled && !open;
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => setOpen(false), [pathname]);
+
   return (
-    <header className="sticky top-0 z-50 bg-primary text-primary-foreground">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:h-20 lg:px-10">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        transparent ? "bg-transparent text-white" : "border-b bg-background text-foreground"
+      }`}
+    >
+      <div className="mx-auto flex h-20 max-w-[1320px] items-center justify-between px-5 lg:h-24 lg:px-10">
         <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <img src={logo} alt="Wild West Wags logo" width={56} height={56} className="h-11 w-11 lg:h-14 lg:w-14" />
-          <span className="font-display text-xl tracking-tight">Wild West Wags</span>
+          <img
+            src={logo}
+            alt="Wild West Wags logo"
+            className={`h-16 w-auto lg:h-20 ${transparent ? "brightness-0 invert" : ""}`}
+          />
         </Link>
         <nav aria-label="Main" className="hidden md:block">
-          <ul className="flex items-center gap-8 text-[0.95rem]">
+          <ul className="flex items-center gap-9 text-[0.9rem] font-medium">
             {NAV.map((n) => (
               <li key={n.to}>
                 <Link
                   to={n.to}
                   activeOptions={{ exact: n.to === "/" }}
-                  className="border-b border-transparent py-1 opacity-85 transition hover:opacity-100 data-[status=active]:border-primary-foreground data-[status=active]:opacity-100"
+                  className={`border-b border-transparent py-1 transition ${
+                    transparent
+                      ? "opacity-90 hover:opacity-100 data-[status=active]:border-white data-[status=active]:opacity-100"
+                      : "opacity-80 hover:text-primary hover:opacity-100 data-[status=active]:border-primary data-[status=active]:text-primary data-[status=active]:opacity-100"
+                  }`}
                 >
                   {n.label}
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                to="/contact"
+                className={`inline-flex min-h-11 items-center border px-5 text-[0.9rem] font-semibold transition ${
+                  transparent
+                    ? "border-white/70 text-white hover:bg-white/10"
+                    : "border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                }`}
+              >
+                Contact
+              </Link>
+            </li>
           </ul>
         </nav>
         <button
@@ -47,15 +83,15 @@ export function Header() {
         </button>
       </div>
       {open && (
-        <nav id="mobile-nav" aria-label="Mobile" className="border-t border-primary-foreground/15 md:hidden">
+        <nav id="mobile-nav" aria-label="Mobile" className="border-t bg-background text-foreground md:hidden">
           <ul className="px-5 py-3">
-            {NAV.map((n) => (
+            {[...NAV, { to: "/contact", label: "Contact" } as const].map((n) => (
               <li key={n.to}>
                 <Link
                   to={n.to}
                   activeOptions={{ exact: n.to === "/" }}
                   onClick={() => setOpen(false)}
-                  className="flex min-h-12 items-center font-display text-2xl opacity-85 data-[status=active]:opacity-100"
+                  className="flex min-h-12 items-center font-display text-xl font-semibold opacity-85 data-[status=active]:text-primary data-[status=active]:opacity-100"
                 >
                   {n.label}
                 </Link>
@@ -70,29 +106,44 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="bg-primary text-primary-foreground">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-3 lg:px-10">
-        <div>
-          <p className="font-display text-2xl">Wild West Wags</p>
-          <p className="mt-2 opacity-80">Dog Training in North Vancouver, BC</p>
+    <footer className="border-t bg-secondary">
+      <div className="mx-auto grid max-w-[1320px] gap-12 px-5 py-16 md:grid-cols-12 lg:px-10 lg:py-20">
+        <div className="md:col-span-5">
+          <img src={logo} alt="Wild West Wags logo" className="h-24 w-auto lg:h-28" />
+          <p className="mt-6 max-w-xs text-muted-foreground">
+            Practical dog training for better everyday life together.
+          </p>
+          <p className="mt-2 text-muted-foreground">North Vancouver, BC</p>
         </div>
-        <div className="space-y-1">
-          <a href={SITE.tel} className="block hover:underline">{SITE.phone}</a>
-          <a href={`mailto:${SITE.email}`} className="block break-all hover:underline">{SITE.email}</a>
-          <a href={SITE.instagram} target="_blank" rel="noopener noreferrer" className="block hover:underline">
-            Instagram: {SITE.handle}
-          </a>
-        </div>
-        <nav aria-label="Footer">
-          <ul className="space-y-1">
-            {NAV.slice(1).map((n) => (
-              <li key={n.to}><Link to={n.to} className="hover:underline">{n.label}</Link></li>
+        <nav aria-label="Footer" className="md:col-span-3">
+          <p className="eyebrow text-primary">Explore</p>
+          <ul className="mt-5 space-y-2.5">
+            {[...NAV.slice(1), { to: "/contact", label: "Contact" } as const].map((n) => (
+              <li key={n.to}>
+                <Link to={n.to} className="transition hover:text-primary">{n.label}</Link>
+              </li>
             ))}
           </ul>
         </nav>
+        <div className="md:col-span-4">
+          <p className="eyebrow text-primary">Get in Touch</p>
+          <div className="mt-5 space-y-2.5">
+            <a href={SITE.tel} className="block transition hover:text-primary">{SITE.phone}</a>
+            <a href={`mailto:${SITE.email}`} className="block break-all transition hover:text-primary">{SITE.email}</a>
+            <a
+              href={SITE.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 transition hover:text-primary"
+            >
+              <Instagram className="h-4 w-4 text-primary" aria-hidden />
+              {SITE.handle}
+            </a>
+          </div>
+        </div>
       </div>
-      <div className="border-t border-primary-foreground/15">
-        <p className="mx-auto max-w-7xl px-5 py-5 text-sm opacity-75 lg:px-10">
+      <div className="border-t">
+        <p className="mx-auto max-w-[1320px] px-5 py-6 text-sm text-muted-foreground lg:px-10">
           © {new Date().getFullYear()} Wild West Wags. All rights reserved.
         </p>
       </div>
@@ -102,11 +153,12 @@ export function Footer() {
 
 export function CtaBand({ heading, body, label }: { heading: string; body?: string; label: string }) {
   return (
-    <section className="bg-secondary">
-      <div className="mx-auto flex max-w-5xl flex-col items-start gap-6 px-5 py-20 md:flex-row md:items-end md:justify-between lg:px-10">
+    <section className="bg-warm">
+      <div className="mx-auto flex max-w-[1320px] flex-col items-start gap-8 px-5 py-24 md:flex-row md:items-end md:justify-between lg:px-10 lg:py-32">
         <div>
-          <h2 className="text-4xl text-primary md:text-5xl">{heading}</h2>
-          {body && <p className="mt-4 max-w-xl text-muted-foreground">{body}</p>}
+          <span className="rule-line text-primary" />
+          <h2 className="mt-6 max-w-xl text-4xl lg:text-5xl">{heading}</h2>
+          {body && <p className="mt-5 max-w-xl text-muted-foreground">{body}</p>}
         </div>
         <Link to="/contact" className="btn-primary shrink-0">{label}</Link>
       </div>
