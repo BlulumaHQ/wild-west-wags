@@ -31,7 +31,7 @@ export const sendInquiry = createServerFn({ method: "POST" })
     if (data.website) return { ok: true }; // silently drop bots
     const ip = getRequestHeader("cf-connecting-ip") ?? getRequestHeader("x-forwarded-for") ?? "unknown";
     if (limited(ip)) return { ok: false };
-    const key = process.env.RESEND_API_KEY;
+    const key = process.env["RESEND_API_KEY"];
     if (!key) {
       console.error("RESEND_API_KEY missing");
       return { ok: false };
@@ -54,7 +54,7 @@ export const sendInquiry = createServerFn({ method: "POST" })
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: process.env.RESEND_FROM ?? "Wild West Wags Website <onboarding@resend.dev>",
+        from: process.env["RESEND_FROM"] ?? "Wild West Wags Website <onboarding@resend.dev>",
         to: ["wildwestwags604@gmail.com"],
         reply_to: data.email,
         subject: "New Wild West Wags Website Inquiry",
