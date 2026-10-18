@@ -79,7 +79,7 @@ function HeroSlider() {
           aria-hidden={i !== index}
           fetchPriority={i === 0 ? "high" : undefined}
           loading={i === 0 ? undefined : "lazy"}
-          className={`absolute inset-0 -z-20 h-full w-full object-cover transition-opacity duration-[1400ms] ease-out ${s.pos} ${
+          className={`absolute inset-0 -z-20 h-full w-full object-cover transition-opacity duration-[1400ms] ease-out ${s.pos} ${"fx" in s ? s.fx : ""} ${
             i === index ? "opacity-100" : "opacity-0"
           }`}
         />
