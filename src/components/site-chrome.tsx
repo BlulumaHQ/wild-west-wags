@@ -107,44 +107,84 @@ export function Header() {
 export function Footer() {
   return (
     <footer className="border-t bg-secondary">
-      <div className="mx-auto grid max-w-[1320px] gap-12 px-5 py-16 md:grid-cols-12 lg:px-10 lg:py-20">
-        <div className="md:col-span-5">
-          <img src={logo} alt="Wild West Wags logo" className="h-24 w-auto lg:h-28" />
-          <p className="mt-6 max-w-xs text-muted-foreground">
-            Practical dog training for better everyday life together.
-          </p>
-          <p className="mt-2 text-muted-foreground">North Vancouver, BC</p>
-        </div>
-        <nav aria-label="Footer" className="md:col-span-3">
-          <p className="eyebrow text-primary">Explore</p>
-          <ul className="mt-5 space-y-2.5">
-            {[...NAV.slice(1), { to: "/contact", label: "Contact" } as const].map((n) => (
-              <li key={n.to}>
-                <Link to={n.to} className="transition hover:text-primary">{n.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <div className="md:col-span-4">
-          <p className="eyebrow text-primary">Get in Touch</p>
-          <div className="mt-5 space-y-2.5">
-            <a href={SITE.tel} className="block transition hover:text-primary">{SITE.phone}</a>
-            <a href={`mailto:${SITE.email}`} className="block break-all transition hover:text-primary">{SITE.email}</a>
+      <div className="mx-auto max-w-[1320px] px-5 py-10 lg:px-10 lg:py-20">
+        {/* Mobile: compact single column. Desktop: unchanged 12-col layout. */}
+        <div className="md:hidden">
+          <img src={logo} alt="Wild West Wags logo" className="h-12 w-auto" />
+          <nav aria-label="Footer" className="mt-5">
+            <ul className="flex flex-wrap gap-x-5 gap-y-2 text-[0.95rem] font-medium">
+              {[...NAV.slice(1), { to: "/contact", label: "Contact" } as const].map((n) => (
+                <li key={n.to}>
+                  <Link to={n.to} className="transition hover:text-primary">{n.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className="mt-4 space-y-1 text-sm text-muted-foreground">
+            <a href={SITE.tel} className="block transition hover:text-foreground">{SITE.phone}</a>
+            <a href={`mailto:${SITE.email}`} className="block transition hover:text-foreground">{SITE.email}</a>
             <a
               href={SITE.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 transition hover:text-primary"
+              className="inline-flex items-center gap-1.5 transition hover:text-foreground"
             >
               <Instagram className="h-4 w-4 text-primary" aria-hidden />
               {SITE.handle}
             </a>
           </div>
         </div>
+
+        {/* Desktop / tablet layout */}
+        <div className="hidden gap-12 md:grid md:grid-cols-12">
+          <div className="md:col-span-5">
+            <img src={logo} alt="Wild West Wags logo" className="h-24 w-auto lg:h-28" />
+            <p className="mt-6 max-w-xs text-muted-foreground">
+              Practical dog training for better everyday life together.
+            </p>
+            <p className="mt-2 text-muted-foreground">North Vancouver, BC</p>
+          </div>
+          <nav aria-label="Footer" className="md:col-span-3">
+            <p className="eyebrow text-primary">Explore</p>
+            <ul className="mt-5 space-y-2.5">
+              {[...NAV.slice(1), { to: "/contact", label: "Contact" } as const].map((n) => (
+                <li key={n.to}>
+                  <Link to={n.to} className="transition hover:text-primary">{n.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className="md:col-span-4">
+            <p className="eyebrow text-primary">Get in Touch</p>
+            <div className="mt-5 space-y-2.5">
+              <a href={SITE.tel} className="block transition hover:text-primary">{SITE.phone}</a>
+              <a href={`mailto:${SITE.email}`} className="block break-all transition hover:text-primary">{SITE.email}</a>
+              <a
+                href={SITE.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 transition hover:text-primary"
+              >
+                <Instagram className="h-4 w-4 text-primary" aria-hidden />
+                {SITE.handle}
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="border-t">
-        <p className="mx-auto max-w-[1320px] px-5 py-6 text-sm text-muted-foreground lg:px-10">
+        <p className="mx-auto max-w-[1320px] px-5 py-5 text-sm text-muted-foreground lg:px-10 lg:py-6">
           © {new Date().getFullYear()} Wild West Wags. All rights reserved.
+          <br />
+          Web Design by{" "}
+          <a
+            href="https://sonykundesign.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-border underline-offset-2 transition hover:text-foreground hover:decoration-foreground"
+          >
+            sonykundesign.com
+          </a>
         </p>
       </div>
     </footer>
