@@ -131,3 +131,29 @@
   & iframe, & video { width: 100%; aspect-ratio: 16 / 9; height: auto; border: 0; }
   & pre { overflow-x: auto; background: var(--color-secondary); padding: 1em; }
 }
+
+@utility btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 3rem; padding: 0.75rem 1.75rem;
+  background: var(--color-primary); color: var(--color-primary-foreground);
+  font-weight: 600; font-size: 1rem; border-radius: var(--radius);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  &:hover { transform: translateY(-1px); background: var(--color-forest); }
+  &:disabled { opacity: 0.6; transform: none; }
+}
+
+@utility btn-light {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 3rem; padding: 0.75rem 1.75rem;
+  background: var(--color-background); color: var(--color-primary);
+  font-weight: 600; font-size: 1rem; border-radius: var(--radius);
+  transition: transform 0.2s ease;
+  &:hover { transform: translateY(-1px); }
+}
+
+@utility field {
+  width: 100%; min-height: 3rem; padding: 0.7rem 0.9rem;
+  background: var(--color-card); border: 1px solid var(--color-input); border-radius: var(--radius);
+  font-size: 1rem;
+  &:focus { outline: 2px solid var(--color-ring); outline-offset: 1px; }
+}
