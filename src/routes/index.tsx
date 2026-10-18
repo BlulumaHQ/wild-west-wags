@@ -24,9 +24,9 @@ export const Route = createFileRoute("/")({
 });
 
 const SLIDES = [
-  { src: slide1.url, alt: "Kelsey with her dog Trigger outdoors in North Vancouver", pos: "32% 8%" },
-  { src: slide2.url, alt: "Kelsey and Trigger together on a walk", pos: "50% 40%" },
-  { src: slide3.url, alt: "Kelsey training with Trigger on a North Shore trail", pos: "50% 45%" },
+  { src: slide1.url, alt: "Kelsey with her dog Trigger outdoors in North Vancouver", pos: "object-[32%_8%] lg:object-[18%_8%]" },
+  { src: slide2.url, alt: "Kelsey and Trigger together on a walk", pos: "object-[50%_40%] lg:object-[50%_58%]" },
+  { src: slide3.url, alt: "Kelsey training with Trigger on a North Shore trail", pos: "object-[50%_45%] lg:object-[50%_62%]" },
 ];
 
 function HeroSlider() {
@@ -74,8 +74,7 @@ function HeroSlider() {
           aria-hidden={i !== index}
           fetchPriority={i === 0 ? "high" : undefined}
           loading={i === 0 ? undefined : "lazy"}
-          style={{ objectPosition: s.pos }}
-          className={`absolute inset-0 -z-20 h-full w-full object-cover transition-opacity duration-[1400ms] ease-out ${
+          className={`absolute inset-0 -z-20 h-full w-full object-cover transition-opacity duration-[1400ms] ease-out ${s.pos} ${
             i === index ? "opacity-100" : "opacity-0"
           }`}
         />
