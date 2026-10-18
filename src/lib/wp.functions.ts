@@ -68,7 +68,8 @@ async function sanitize(html: string) {
 export const listPosts = createServerFn({ method: "GET" })
   .inputValidator((d: unknown) => z.object({ page: z.number().int().min(1).max(500) }).parse(d))
   .handler(async ({ data }) => {
-    const res = await fetch(`${API}/posts?_embed&per_page=9&page=${data.page}&status=publish`);
+    const res = await fetch(`${API}/posts?_embed&per_page=9&page=${data.page}`).catch(() => null);
+    if (!res) return { posts: [] as PostSummary[], totalPages: 0, error: true };
     if (res.status === 400 && data.page > 1) return { posts: [] as PostSummary[], totalPages: 1, error: false };
     if (!res.ok) {
       console.error("WP list failed", res.status);
@@ -85,7 +86,8 @@ export const listPosts = createServerFn({ method: "GET" })
 export const getPost = createServerFn({ method: "GET" })
   .inputValidator((d: unknown) => z.object({ slug: z.string().regex(/^[a-z0-9-%]+$/i).max(200) }).parse(d))
   .handler(async ({ data }) => {
-    const res = await fetch(`${API}/posts?slug=${encodeURIComponent(data.slug)}&_embed`);
+    const res = await fetch(`${API}/posts?slug=${encodeURIComponent(data.slug)}&_embed`).catch(() => null);
+    if (!res) return { post: null as Post | null, error: true };
     if (!res.ok) {
       console.error("WP post failed", res.status);
       return { post: null as Post | null, error: true };
