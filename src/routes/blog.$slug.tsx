@@ -79,14 +79,14 @@ function Article() {
     );
   return (
     <>
-      <article className="px-5 py-16 lg:py-24">
+      <article className="px-5 pb-20 pt-36 lg:pb-28 lg:pt-44">
         <header className="mx-auto max-w-[47rem]">
           {post.category && <p className="eyebrow text-primary">{post.category}</p>}
           <h1 className="mt-4 text-[2.4rem] lg:text-6xl">{post.title}</h1>
           <time dateTime={post.date} className="mt-6 block text-muted-foreground">{fmtDate(post.date)}</time>
         </header>
         {post.image && (
-          <img src={post.image.url} alt={post.image.alt} className="mx-auto mt-12 aspect-[16/9] w-full max-w-5xl rounded object-cover" />
+          <img src={post.image.url} alt={post.image.alt} className="mx-auto mt-12 aspect-[16/9] w-full max-w-5xl object-cover" />
         )}
         <div className="prose-wp mx-auto mt-12 max-w-[44rem]" dangerouslySetInnerHTML={{ __html: post.content }} />
         <div className="mx-auto mt-16 max-w-[44rem] border-t pt-6">
