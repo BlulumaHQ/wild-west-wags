@@ -27,8 +27,8 @@ const SLIDES = [
   {
     src: slide1.url,
     alt: "Kelsey with her dog Trigger outdoors in North Vancouver",
-    pos: "object-[32%_8%]",
-    fx: "lg:scale-[1.35] lg:origin-bottom-left lg:translate-x-[3%]",
+    pos: "object-[32%_8%] lg:object-[32%_18%]",
+    fx: "lg:-ml-[3%] lg:w-[106%] lg:scale-[1.35] lg:origin-bottom-left lg:translate-x-[2.8%]",
   },
   { src: slide2.url, alt: "Kelsey and Trigger together on a walk", pos: "object-[50%_40%] lg:object-[50%_58%]" },
   { src: slide3.url, alt: "Kelsey training with Trigger on a North Shore trail", pos: "object-[50%_45%] lg:object-[50%_62%]" },
