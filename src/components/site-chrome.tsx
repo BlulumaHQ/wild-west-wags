@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Instagram, Menu, X } from "lucide-react";
 import logo from "@/assets/logo.svg";
+import wordmark from "@/assets/wild-west-wags-wordmark-green.webp.asset.json";
 import { SITE } from "@/lib/site";
 
 const NAV = [
@@ -33,14 +34,7 @@ export function Header() {
         transparent ? "bg-transparent text-white" : "border-b bg-background text-foreground"
       }`}
     >
-      <div className="mx-auto flex h-20 max-w-[1320px] items-center justify-between px-5 lg:h-24 lg:px-10">
-        <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <img
-            src={logo}
-            alt="Wild West Wags logo"
-            className="h-16 w-auto lg:h-20"
-          />
-        </Link>
+      <div className="mx-auto flex h-20 max-w-[1320px] items-center justify-between gap-6 px-5 lg:h-24 lg:px-10">
         <nav aria-label="Main" className="hidden md:block">
           <ul className="flex items-center gap-9 text-[0.9rem] font-medium">
             {NAV.map((n) => (
@@ -81,6 +75,19 @@ export function Header() {
         >
           {open ? <X /> : <Menu />}
         </button>
+        <Link
+          to="/"
+          onClick={() => setOpen(false)}
+          className={`ml-auto shrink-0 rounded px-3 py-2 transition ${
+            transparent ? "bg-white/90 backdrop-blur-sm" : ""
+          }`}
+        >
+          <img
+            src={wordmark.url}
+            alt="Wild West Wags"
+            className="h-9 w-auto lg:h-11"
+          />
+        </Link>
       </div>
       {open && (
         <nav id="mobile-nav" aria-label="Mobile" className="border-t bg-background text-foreground md:hidden">

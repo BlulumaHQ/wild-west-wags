@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { LOCAL_POSTS } from "@/lib/blog/local";
+import { USE_WORDPRESS_BLOG, WORDPRESS_API_BASE } from "@/lib/blog";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -6,11 +8,15 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const base = "https://wildwestwags.ca";
         const paths = ["/", "/about", "/services", "/blog", "/contact"];
-        try {
-          const r = await fetch("https://cms.wildwestwags.ca/wp-json/wp/v2/posts?per_page=100&_fields=slug,modified");
-          if (r.ok) for (const p of (await r.json()) as { slug: string }[]) paths.push(`/blog/${p.slug}`);
-        } catch {
-          /* CMS unavailable */
+        if (USE_WORDPRESS_BLOG) {
+          try {
+            const r = await fetch(`${WORDPRESS_API_BASE}/posts?per_page=100&_fields=slug`);
+            if (r.ok) for (const p of (await r.json()) as { slug: string }[]) paths.push(`/blog/${p.slug}`);
+          } catch {
+            /* CMS unavailable */
+          }
+        } else {
+          for (const p of LOCAL_POSTS) paths.push(`/blog/${p.slug}`);
         }
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paths
           .map((p) => `<url><loc>${base}${p}</loc></url>`)
