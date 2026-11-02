@@ -130,7 +130,7 @@ function Services() {
         <p className="eyebrow text-primary">Skill-Building Packages</p>
         <h2 className="mt-5 text-4xl lg:text-5xl">Structured support over time.</h2>
         <ServiceList items={PACKAGES} />
-        <img src={walking.url" alt="Kelsey walking with Trigger on a forest trail in North Vancouver" loading="lazy" className="mt-16 aspect-[16/10] w-full object-cover lg:aspect-[21/9]" />
+        <img src={walking.url} alt="Kelsey walking with Trigger on a forest trail in North Vancouver" loading="lazy" className="mt-16 aspect-[16/10] w-full object-cover lg:aspect-[21/9]" />
       </section>
 
       {/* Pet sitting */}

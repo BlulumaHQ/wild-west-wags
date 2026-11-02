@@ -1,24 +1,23 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { z } from "zod";
-import { listPosts, type PostSummary } from "@/lib/wp.functions";
+import { listBlogPosts } from "@/lib/blog";
+import type { BlogPost } from "@/lib/blog/types";
 import { pageHead } from "@/lib/site";
 
 export const Route = createFileRoute("/blog/")({
   validateSearch: z.object({ page: z.number().int().min(1).optional() }),
   loaderDeps: ({ search }) => ({ page: search.page ?? 1 }),
-  loader: ({ deps }) => listPosts({ data: { page: deps.page } }),
+  loader: ({ deps }) => listBlogPosts({ data: { page: deps.page } }),
   head: () =>
     pageHead({
-      title: "Dog Training Blog | Wild West Wags",
-      description: "Practical training ideas, everyday dog-life insights and updates from Wild West Wags in North Vancouver.",
+      title: "Dog Walking & Training Blog | Wild West Wags",
+      description:
+        "Practical dog walking and training ideas, everyday dog-life insights and updates from Wild West Wags in North Vancouver.",
       path: "/blog",
     }),
   pendingComponent: BlogSkeleton,
   component: Blog,
 });
-
-export const fmtDate = (d: string) =>
-  new Date(d).toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric" });
 
 function Header() {
   return (
@@ -48,7 +47,7 @@ function BlogSkeleton() {
   );
 }
 
-function Card({ p }: { p: PostSummary }) {
+function Card({ p }: { p: BlogPost }) {
   return (
     <article className="group">
       <Link to="/blog/$slug" params={{ slug: p.slug }} className="block overflow-hidden">
@@ -60,13 +59,11 @@ function Card({ p }: { p: PostSummary }) {
           </div>
         )}
       </Link>
-      {p.category && <p className="eyebrow mt-5 text-primary">{p.category}</p>}
-      <h2 className="mt-3 text-2xl">
+      <h2 className="mt-5 text-2xl">
         <Link to="/blog/$slug" params={{ slug: p.slug }} className="hover:text-primary">{p.title}</Link>
       </h2>
-      <p className="mt-3 line-clamp-3 text-muted-foreground">{p.excerptText}</p>
-      <div className="mt-4 flex items-center justify-between border-t pt-4 text-sm">
-        <time dateTime={p.date} className="text-muted-foreground">{fmtDate(p.date)}</time>
+      <p className="mt-3 line-clamp-3 text-muted-foreground">{p.excerpt}</p>
+      <div className="mt-4 border-t pt-4 text-sm">
         <Link to="/blog/$slug" params={{ slug: p.slug }} className="font-semibold text-primary">Read Article →</Link>
       </div>
     </article>

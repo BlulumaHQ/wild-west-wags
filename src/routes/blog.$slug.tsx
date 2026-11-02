@@ -1,13 +1,10 @@
 import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
-import { getPost } from "@/lib/wp.functions";
+import { getBlogPost } from "@/lib/blog";
 import { SITE } from "@/lib/site";
-import { CtaBand } from "@/components/site-chrome";
-
-const fmtDate = (d: string) => new Date(d).toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric" });
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: async ({ params }) => {
-    const r = await getPost({ data: { slug: params.slug } });
+    const r = await getBlogPost({ data: { slug: params.slug } });
     if (!r.error && !r.post) throw notFound();
     return r;
   },
@@ -16,7 +13,7 @@ export const Route = createFileRoute("/blog/$slug")({
     const url = `${SITE.url}/blog/${params.slug}`;
     if (!post) return { meta: [{ title: "Article | Wild West Wags" }, { name: "robots", content: "noindex" }] };
     const title = `${post.title} | Wild West Wags`;
-    const desc = post.excerptText.slice(0, 160);
+    const desc = post.metaDescription || post.excerpt.slice(0, 160);
     const meta = [
       { title },
       { name: "description", content: desc },
@@ -40,8 +37,8 @@ export const Route = createFileRoute("/blog/$slug")({
             "@type": "Article",
             headline: post.title,
             description: desc,
-            datePublished: post.date,
-            dateModified: post.modified || post.date,
+            ...(post.date ? { datePublished: post.date } : {}),
+            author: { "@type": "Person", name: post.author, jobTitle: post.authorLine },
             mainEntityOfPage: url,
             ...(post.image ? { image: post.image.url } : {}),
             publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
@@ -80,24 +77,40 @@ function Article() {
   return (
     <>
       <article className="px-5 pb-20 pt-36 lg:pb-28 lg:pt-44">
-        <header className="mx-auto max-w-[47rem]">
-          {post.category && <p className="eyebrow text-primary">{post.category}</p>}
-          <h1 className="mt-4 text-[2.4rem] lg:text-6xl">{post.title}</h1>
-          <time dateTime={post.date} className="mt-6 block text-muted-foreground">{fmtDate(post.date)}</time>
+        <header className="mx-auto max-w-[46rem]">
+          <p className="eyebrow text-primary">Wild West Wags Blog</p>
+          <h1 className="mt-4 text-[2.4rem] lg:text-5xl">{post.title}</h1>
+          <p className="mt-6 text-muted-foreground">
+            By <span className="font-semibold text-foreground">{post.author}</span>
+            <span aria-hidden className="mx-2">·</span>
+            {post.authorLine}
+          </p>
         </header>
         {post.image && (
           <img src={post.image.url} alt={post.image.alt} className="mx-auto mt-12 aspect-[16/9] w-full max-w-5xl object-cover" />
         )}
         <div className="prose-wp mx-auto mt-12 max-w-[44rem]" dangerouslySetInnerHTML={{ __html: post.content }} />
-        <div className="mx-auto mt-16 max-w-[44rem] border-t pt-6">
+        {post.authorFooter && (
+          <p className="mx-auto mt-14 max-w-[44rem] border-t pt-6 text-sm text-muted-foreground">{post.authorFooter}</p>
+        )}
+        <div className="mx-auto mt-10 max-w-[44rem] border-t pt-6">
           <Link to="/blog" className="font-semibold text-primary">← Back to Blog</Link>
         </div>
       </article>
-      <CtaBand
-        heading="Looking for training support?"
-        body="Tell us a little about your dog and what you would like to work on."
-        label="Get in Touch"
-      />
+
+      <section className="bg-warm">
+        <div className="mx-auto max-w-[1320px] px-5 py-24 text-center lg:px-10 lg:py-32">
+          <span className="rule-line mx-auto text-primary" />
+          <h2 className="mx-auto mt-6 max-w-2xl text-4xl lg:text-5xl">Looking for support with your dog?</h2>
+          <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
+            Tell us a little about your dog and what you'd like to work on.
+          </p>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+            <Link to="/services" className="btn-primary">Explore Services</Link>
+            <Link to="/contact" className="btn-outline-dark">Get in Touch</Link>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
