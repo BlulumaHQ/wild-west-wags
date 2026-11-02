@@ -1,16 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import main from "@/assets/kt-30.webp.asset.json";
 import support from "@/assets/kt-22.webp.asset.json";
-import trail from "@/assets/kt-36.webp.asset.json";
+import { CredentialLogos } from "@/components/credentials";
 import { pageHead } from "@/lib/site";
 import { CtaBand } from "@/components/site-chrome";
 
 export const Route = createFileRoute("/about")({
   head: () =>
     pageHead({
-      title: "About Wild West Wags | North Vancouver Dog Training",
+      title: "About Kelsey | Wild West Wags North Vancouver",
       description:
-        "Wild West Wags is a North Vancouver dog-training business focused on clear communication, practical skills and helping dogs and their people feel confident together.",
+        "Meet Kelsey Creswell, founder of Wild West Wags — positive reinforcement dog walking and training in North Vancouver focused on practical skills for everyday life.",
       path: "/about",
     }),
   component: About,
@@ -22,15 +22,26 @@ function About() {
       <section className="mx-auto grid max-w-[1320px] gap-12 px-5 pb-20 pt-36 lg:grid-cols-12 lg:gap-16 lg:px-10 lg:pb-28 lg:pt-44">
         <div className="fade-up lg:col-span-5 lg:pt-8">
           <p className="eyebrow text-primary">About</p>
-          <h1 className="mt-5 text-[2.6rem] lg:text-6xl">A practical approach to a better life together.</h1>
-          <p className="mt-6 max-w-[36rem] text-muted-foreground">
-            Wild West Wags is based in North Vancouver, where dogs are part of everyday life — from neighbourhood walks
-            and busy community spaces to weekends spent exploring the trails.
-          </p>
-          <p className="mt-4 max-w-[36rem] text-muted-foreground">
-            The goal of training is not simply to perform behaviours during a lesson. It is to build communication and
-            skills that make everyday life with your dog easier, clearer and more enjoyable.
-          </p>
+          <h1 className="mt-5 text-[2.6rem] lg:text-6xl">Meet Kelsey</h1>
+          <div className="mt-6 max-w-[36rem] space-y-5 text-muted-foreground">
+            <p>
+              Kelsey Creswell is the founder of Wild West Wags, a North Vancouver dog walking and training business
+              focused on positive reinforcement, individualized care, and practical skills for everyday life.
+            </p>
+            <p>
+              Her approach combines thoughtful dog walking with skill-building and training, helping dogs develop
+              stronger engagement, leash skills, confidence, recall foundations, and calmer responses to everyday
+              environments.
+            </p>
+            <p>
+              Kelsey believes good training should be realistic, approachable, and relevant to the life each dog
+              actually lives. Her goal is to help dogs and their people build clearer communication, practical skills,
+              and more enjoyable experiences together.
+            </p>
+            <p className="text-foreground">
+              Kelsey is a Good Dog Academy Professional Dog Trainer graduate and DOGSAFE Canine First Aid certified.
+            </p>
+          </div>
         </div>
         <div className="lg:col-span-7">
           <img src={main.url} alt="Kelsey kneeling beside Trigger outdoors" className="aspect-[4/3] w-full object-cover" />
@@ -59,20 +70,13 @@ function About() {
         </div>
       </section>
 
-      <section className="bg-secondary">
-        <div className="mx-auto grid max-w-[1320px] items-center gap-12 px-5 py-24 lg:grid-cols-2 lg:gap-20 lg:px-10 lg:py-36">
-          <img src={trail.url} alt="Trigger looking up attentively during training" loading="lazy" className="aspect-[4/3] w-full object-cover lg:order-first" />
-          <div className="max-w-xl lg:order-last">
-            <span className="rule-line text-primary" />
-            <h2 className="mt-6 text-4xl lg:text-5xl">Training that goes beyond the session.</h2>
-            <div className="mt-6 space-y-5">
-              <p>Progress is built through consistency, communication and practice in everyday situations.</p>
-              <p>
-                The aim is to help you understand not only what to do, but why you are doing it — so the skills
-                developed through training can continue becoming part of daily life.
-              </p>
-            </div>
+      <section className="border-t">
+        <div className="mx-auto max-w-[1320px] px-5 py-24 lg:px-10 lg:py-32">
+          <div className="max-w-2xl">
+            <p className="eyebrow text-primary">Credentials &amp; Professional Standards</p>
+            <h2 className="mt-5 text-3xl lg:text-4xl">Trained, certified and insured.</h2>
           </div>
+          <CredentialLogos className="mt-14" />
         </div>
       </section>
 
