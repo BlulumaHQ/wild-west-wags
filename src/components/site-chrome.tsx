@@ -85,7 +85,7 @@ export function Header() {
           <img
             src={wordmark.url}
             alt="Wild West Wags"
-            className="h-9 w-auto lg:h-11"
+            className="h-6 w-auto max-w-[62vw] object-contain sm:h-8 lg:h-11 lg:max-w-none"
           />
         </Link>
       </div>
