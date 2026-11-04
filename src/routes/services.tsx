@@ -71,7 +71,7 @@ const AREAS_SERVED = ["Upper Lonsdale", "Lynn Valley", "Delbrook", "Edgemont"];
 
 function ServiceList({ items }: { items: Service[] }) {
   return (
-    <ul className="mt-10 border-t">
+    <ul className="border-t">
       {items.map((s) => (
         <li key={s.name} className="grid gap-3 border-b py-8 lg:grid-cols-12 lg:gap-10">
           <h3 className="font-display text-2xl font-semibold lg:col-span-4">{s.name}</h3>
@@ -110,35 +110,29 @@ function Services() {
       </section>
 
       {/* Dog walking */}
-      <section className="mx-auto max-w-[1320px] px-5 py-24 lg:px-10 lg:py-32">
-        <p className="eyebrow text-primary">Dog Walking</p>
-        <h2 className="mt-5 text-4xl lg:text-5xl">Walks tailored to your dog.</h2>
+      <section className="mx-auto max-w-[1320px] px-5 py-16 lg:px-10 lg:py-20">
         <ServiceList items={DOG_WALKING} />
       </section>
 
       {/* Skill building & training */}
       <section className="bg-secondary">
-        <div className="mx-auto max-w-[1320px] px-5 py-24 lg:px-10 lg:py-32">
-          <p className="eyebrow text-primary">Skill Building &amp; Training</p>
-          <h2 className="mt-5 text-4xl lg:text-5xl">Practice that carries into real life.</h2>
+        <div className="mx-auto max-w-[1320px] px-5 py-16 lg:px-10 lg:py-20">
           <ServiceList items={TRAINING} />
         </div>
       </section>
 
       {/* Packages */}
-      <section className="mx-auto max-w-[1320px] px-5 py-24 lg:px-10 lg:py-32">
-        <p className="eyebrow text-primary">Skill-Building Packages</p>
-        <h2 className="mt-5 text-4xl lg:text-5xl">Structured support over time.</h2>
+      <section className="mx-auto max-w-[1320px] px-5 py-16 lg:px-10 lg:py-20">
+        <p className="eyebrow mb-8 text-primary">Skill-Building Packages</p>
         <ServiceList items={PACKAGES} />
         <img src={walking.url} alt="Kelsey walking with Trigger on a forest trail in North Vancouver" loading="lazy" className="mt-16 aspect-[16/10] w-full object-cover lg:aspect-[21/9]" />
       </section>
 
       {/* Pet sitting */}
       <section className="border-t">
-        <div className="mx-auto grid max-w-[1320px] items-center gap-12 px-5 py-24 lg:grid-cols-12 lg:gap-16 lg:px-10 lg:py-32">
+        <div className="mx-auto grid max-w-[1320px] items-center gap-12 px-5 py-16 lg:grid-cols-12 lg:gap-16 lg:px-10 lg:py-20">
           <div className="lg:col-span-7">
-            <p className="eyebrow text-primary">Pet Sitting</p>
-            <h2 className="mt-5 text-4xl lg:text-5xl">Care while you're away.</h2>
+            <h2 className="font-display text-2xl font-semibold">Pet Sitting</h2>
             <p className="mt-6 font-display text-xl font-semibold text-primary">Starting at $100 minimum per night.</p>
             <p className="mt-4 max-w-[40rem] text-muted-foreground">
               Please contact Wild West Wags for availability and final pricing.
@@ -164,7 +158,6 @@ function Services() {
           </div>
           <div>
             <p className="eyebrow text-primary">Our Approach</p>
-            <h2 className="mt-5 text-4xl lg:text-5xl">Positive, thoughtful, consistent.</h2>
             <p className="mt-6 max-w-[38rem] text-muted-foreground">
               We focus on positive reinforcement, thoughtful management, and consistent practice in everyday
               environments. Every dog learns at their own pace, and services are tailored to their individual needs.

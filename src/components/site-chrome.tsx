@@ -146,10 +146,7 @@ export function Footer() {
         <div className="hidden gap-12 md:grid md:grid-cols-12">
           <div className="md:col-span-5">
             <img src={logo} alt="Wild West Wags logo" className="h-24 w-auto lg:h-28" />
-            <p className="mt-6 max-w-xs text-muted-foreground">
-              Practical dog training for better everyday life together.
-            </p>
-            <p className="mt-2 text-muted-foreground">North Vancouver, BC</p>
+            <p className="mt-6 text-muted-foreground">North Vancouver, BC</p>
           </div>
           <nav aria-label="Footer" className="md:col-span-3">
             <p className="eyebrow text-primary">Explore</p>
