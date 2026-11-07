@@ -1,7 +1,7 @@
 export const SITE = {
   name: "Wild West Wags",
   url: "https://wildwestwags.ca",
-  email: "wildwestwags604@gmail.com",
+  email: "Hello@wildwestwags.ca",
   phone: "604-723-6815",
   tel: "tel:+16047236815",
   instagram: "https://www.instagram.com/wildwestwags/",

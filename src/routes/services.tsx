@@ -101,7 +101,7 @@ function Services() {
       <section className="mx-auto max-w-[1320px] px-5 pt-36 lg:px-10 lg:pt-44">
         <div className="fade-up max-w-3xl">
           <p className="eyebrow text-primary">Services + Pricing</p>
-          <h1 className="mt-5 text-[2.6rem] lg:text-6xl">Dog Walking, Skill Building &amp; Training</h1>
+          <h1 className="mt-5 text-[2rem] lg:text-4xl">Dog Walking, Skill Building &amp; Training</h1>
           <p className="mt-6 max-w-[42rem] text-lg text-muted-foreground">
             Thoughtful, individualized care that supports your dog's everyday needs, confidence, and practical skills.
           </p>
