@@ -1,9 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import slide1 from "@/assets/kt-41b.webp.asset.json";
-import slide2 from "@/assets/kt-18.webp.asset.json";
-import slide3 from "@/assets/kt-22b.webp.asset.json";
 import { CredentialLogos } from "@/components/credentials";
 import { pageHead, SITE } from "@/lib/site";
 
@@ -20,13 +17,13 @@ export const Route = createFileRoute("/")({
 
 const SLIDES = [
   {
-    src: slide1.url,
+    src: "/assets/kt-41b.webp",
     alt: "Kelsey with her dog Trigger outdoors in North Vancouver",
     pos: "object-[32%_8%] lg:object-[32%_18%]",
     fx: "lg:-ml-[3%] lg:w-[106%] lg:scale-[1.35] lg:origin-bottom-left lg:translate-x-[2.8%]",
   },
-  { src: slide2.url, alt: "Kelsey and Trigger together on a walk", pos: "object-[50%_40%] lg:object-[50%_58%]" },
-  { src: slide3.url, alt: "Kelsey training with Trigger on a North Shore trail", pos: "object-[50%_45%] lg:object-[50%_62%]" },
+  { src: "/assets/kt-18.webp", alt: "Kelsey and Trigger together on a walk", pos: "object-[50%_40%] lg:object-[50%_58%]" },
+  { src: "/assets/kt-22b.webp", alt: "Kelsey training with Trigger on a North Shore trail", pos: "object-[50%_45%] lg:object-[50%_62%]" },
 ] as const;
 
 function HeroSlider() {

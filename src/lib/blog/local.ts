@@ -1,6 +1,3 @@
-import imgWalk from "@/assets/kt-8.webp.asset.json";
-import imgSkills from "@/assets/kt-15.webp.asset.json";
-import imgFocus from "@/assets/kt-36.webp.asset.json";
 import type { BlogPost } from "./types";
 
 const AUTHOR = "Kelsey Creswell";
@@ -16,7 +13,7 @@ export const LOCAL_POSTS: BlogPost[] = [
       "With beautiful forest trails, neighbourhood parks and endless opportunities to explore, North Vancouver is a wonderful place to be a dog. But when it comes to choosing a dog walking service, there's more to consider than simply finding someone who can take your dog outside.",
     metaDescription:
       "Pack walks, private walks, buddy walks and skill-building walks — how to choose the right dog walking service in North Vancouver for your dog's personality and needs.",
-    image: { url: imgWalk.url, alt: "Kelsey walking with Trigger on a forest trail in North Vancouver" },
+    image: { url: "/assets/kt-8.webp", alt: "Kelsey walking with Trigger on a forest trail in North Vancouver" },
     author: AUTHOR,
     authorLine: AUTHOR_LINE,
     authorFooter: AUTHOR_FOOTER,
@@ -70,7 +67,7 @@ export const LOCAL_POSTS: BlogPost[] = [
       "For many dogs, their daily walk is one of the most exciting parts of their day. But what if those walks could also help build better habits, strengthen communication and develop important life skills?",
     metaDescription:
       "Skill-building walks combine exercise with positive reinforcement training — loose-leash walking, engagement, recall and confidence around everyday distractions.",
-    image: { url: imgSkills.url, alt: "Kelsey working with Trigger during a training session" },
+    image: { url: "/assets/kt-15.webp", alt: "Kelsey working with Trigger during a training session" },
     author: AUTHOR,
     authorLine: AUTHOR_LINE,
     authorFooter: AUTHOR_FOOTER,
@@ -113,7 +110,7 @@ export const LOCAL_POSTS: BlogPost[] = [
       "Your dog sits beautifully in the kitchen, comes when called in the living room and happily follows cues when you're practising at home. But the moment you step outside, it's as though they've forgotten everything they've learned.",
     metaDescription:
       "Distractions, arousal and generalization — why dogs respond to cues at home but not on walks, and how to build focus that works in real life.",
-    image: { url: imgFocus.url, alt: "Trigger looking up attentively during training" },
+    image: { url: "/assets/kt-36.webp", alt: "Trigger looking up attentively during training" },
     author: AUTHOR,
     authorLine: AUTHOR_LINE,
     authorFooter: AUTHOR_FOOTER,

@@ -2,7 +2,6 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Instagram, Menu, X } from "lucide-react";
 import logo from "@/assets/logo.svg";
-import wordmark from "@/assets/wild-west-wags-wordmark-green.webp.asset.json";
 import { SITE } from "@/lib/site";
 
 const NAV = [
@@ -83,7 +82,7 @@ export function Header() {
           }`}
         >
           <img
-            src={wordmark.url}
+            src={"/assets/wild-west-wags-wordmark-green.webp"}
             alt="Wild West Wags"
             className="h-6 w-auto max-w-[62vw] object-contain sm:h-8 lg:h-11 lg:max-w-none"
           />

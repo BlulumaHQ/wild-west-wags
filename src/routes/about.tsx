@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import main from "@/assets/kt-30.webp.asset.json";
 import { CredentialLogos } from "@/components/credentials";
 import { pageHead } from "@/lib/site";
 import { CtaBand } from "@/components/site-chrome";
@@ -47,7 +46,7 @@ function About() {
           </div>
         </div>
         <div className="order-first lg:order-none lg:col-span-7">
-          <img src={main.url} alt="Kelsey kneeling beside Trigger outdoors" className="aspect-[4/3] w-full object-cover" />
+          <img src={"/assets/kt-30.webp"} alt="Kelsey kneeling beside Trigger outdoors" className="aspect-[4/3] w-full object-cover" />
         </div>
       </section>
 

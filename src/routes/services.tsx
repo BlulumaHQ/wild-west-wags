@@ -1,7 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import main from "@/assets/kt-41.webp.asset.json";
-import detail from "@/assets/kt-36.webp.asset.json";
-import walking from "@/assets/kt-8.webp.asset.json";
 import { pageHead } from "@/lib/site";
 
 export const Route = createFileRoute("/services")({
@@ -106,7 +103,7 @@ function Services() {
             Thoughtful, individualized care that supports your dog's everyday needs, confidence, and practical skills.
           </p>
         </div>
-        <img src={main.url} alt="Kelsey working with Trigger during an outdoor training session" className="mt-14 aspect-[16/10] w-full object-cover lg:aspect-[21/9]" />
+        <img src={"/assets/kt-41.webp"} alt="Kelsey working with Trigger during an outdoor training session" className="mt-14 aspect-[16/10] w-full object-cover lg:aspect-[21/9]" />
       </section>
 
       {/* Dog walking */}
@@ -125,7 +122,7 @@ function Services() {
       <section className="mx-auto max-w-[1320px] px-5 py-16 lg:px-10 lg:py-20">
         <p className="eyebrow mb-8 text-primary">Skill-Building Packages</p>
         <ServiceList items={PACKAGES} />
-        <img src={walking.url} alt="Kelsey walking with Trigger on a forest trail in North Vancouver" loading="lazy" className="mt-16 aspect-[16/10] w-full object-cover lg:aspect-[21/9]" />
+        <img src={"/assets/kt-8.webp"} alt="Kelsey walking with Trigger on a forest trail in North Vancouver" loading="lazy" className="mt-16 aspect-[16/10] w-full object-cover lg:aspect-[21/9]" />
       </section>
 
       {/* Pet sitting */}
@@ -139,7 +136,7 @@ function Services() {
             </p>
             <Link to="/contact" className="btn-outline-dark mt-8">Ask About Pet Sitting</Link>
           </div>
-          <img src={detail.url} alt="Close-up of Trigger looking up attentively" loading="lazy" className="aspect-[3/4] w-full max-w-md justify-self-center object-cover lg:col-span-5" />
+          <img src={"/assets/kt-36.webp"} alt="Close-up of Trigger looking up attentively" loading="lazy" className="aspect-[3/4] w-full max-w-md justify-self-center object-cover lg:col-span-5" />
         </div>
       </section>
 

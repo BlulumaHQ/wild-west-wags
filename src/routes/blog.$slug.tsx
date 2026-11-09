@@ -25,7 +25,7 @@ export const Route = createFileRoute("/blog/$slug")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: desc },
     ];
-    if (post.image) meta.push({ property: "og:image", content: post.image.url }, { name: "twitter:image", content: post.image.url });
+    if (post.image?.url.startsWith("https://")) meta.push({ property: "og:image", content: post.image.url }, { name: "twitter:image", content: post.image.url });
     return {
       meta,
       links: [{ rel: "canonical", href: url }],

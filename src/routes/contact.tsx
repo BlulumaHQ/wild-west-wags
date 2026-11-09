@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { Instagram } from "lucide-react";
-import portrait from "@/assets/kt-32.webp.asset.json";
 import { pageHead, SITE } from "@/lib/site";
 import { sendInquiry } from "@/lib/contact.functions";
 
@@ -66,7 +65,7 @@ function Contact() {
             {SITE.handle}
           </a>
         </address>
-        <img src={portrait.url} alt="Kelsey standing outdoors with Trigger at her side" loading="lazy" className="mt-10 hidden aspect-[4/5] w-full object-cover lg:block" />
+        <img src={"/assets/kt-32.webp"} alt="Kelsey standing outdoors with Trigger at her side" loading="lazy" className="mt-10 hidden aspect-[4/5] w-full object-cover lg:block" />
       </div>
 
       <div className="lg:col-span-7">

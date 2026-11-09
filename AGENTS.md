@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep uploaded site images as committed real files in `public/assets` and reference `/assets/...` from runtime code so independent Cloudflare deployments do not require Lovable's asset proxy.

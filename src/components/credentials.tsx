@@ -1,13 +1,8 @@
-import goodDog from "@/assets/good-dog-academy-graduate.webp.asset.json";
-import dogsafe from "@/assets/dogsafe-certified.webp.asset.json";
-import capdt from "@/assets/capdt.webp.asset.json";
-import profur from "@/assets/profur-insured.webp.asset.json";
-
 const LOGOS = [
-  { src: goodDog.url, alt: "Good Dog Academy Professional Dog Trainer graduate", href: null },
-  { src: dogsafe.url, alt: "DOGSAFE Canine First Aid certified", href: "https://www.dogsafe.ca/" },
-  { src: capdt.url, alt: "Canadian Association of Professional Dog Trainers member", href: "https://capdt.ca/" },
-  { src: profur.url, alt: "PROfur insured", href: "https://profur.ca/" },
+  { src: "/assets/good-dog-academy-graduate.webp", alt: "Good Dog Academy Professional Dog Trainer graduate", href: null },
+  { src: "/assets/dogsafe-certified.webp", alt: "DOGSAFE Canine First Aid certified", href: "https://www.dogsafe.ca/" },
+  { src: "/assets/capdt.webp", alt: "Canadian Association of Professional Dog Trainers member", href: "https://capdt.ca/" },
+  { src: "/assets/profur-insured.webp", alt: "PROfur insured", href: "https://profur.ca/" },
 ] as const;
 
 export function CredentialLogos({ className = "" }: { className?: string }) {
