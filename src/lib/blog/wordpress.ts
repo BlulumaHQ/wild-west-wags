@@ -1,12 +1,44 @@
 import type { BlogListResult, BlogPost, BlogPostResult } from "./types";
+import { WORDPRESS_API_BASE, WORDPRESS_PUBLIC_API_BASE } from "./config";
 
 /**
- * Headless WordPress provider. Inactive until USE_WORDPRESS_BLOG is flipped
- * in ./index.ts. Reads the public REST API only — no credentials involved.
+ * Active Headless WordPress provider. Reads the public REST API only —
+ * no credentials involved.
  * The public canonical domain always stays https://wildwestwags.ca.
  */
-const API = "https://cms.wildwestwags.ca/wp-json/wp/v2";
 const PER_PAGE = 12;
+
+export async function wpFetch(path: string): Promise<Response> {
+  const response = await fetch(`${WORDPRESS_API_BASE}${path}`);
+  if (response.status === 404) return fetch(`${WORDPRESS_PUBLIC_API_BASE}${path}`);
+  return response;
+}
+
+function publicLink(href: string | undefined) {
+  if (!href) return href;
+  try {
+    const url = new URL(href, "https://wildwestwagsblog.wordpress.com");
+    if (url.hostname !== "wildwestwagsblog.wordpress.com") return href;
+    const segments = url.pathname.split("/").filter(Boolean);
+    const slug = segments.at(-1);
+    return slug ? `https://wildwestwags.ca/blog/${slug}${url.hash}` : "https://wildwestwags.ca/blog";
+  } catch {
+    return href;
+  }
+}
+
+/** WordPress.com's image CDN avoids direct-upload browser blocking (ORB). */
+export function wpImageUrl(src: string): string {
+  try {
+    const url = new URL(src);
+    if (url.hostname === "wildwestwagsblog.wordpress.com" && url.pathname.startsWith("/wp-content/uploads/")) {
+      return `https://i0.wp.com/${url.hostname}${url.pathname}${url.search}`;
+    }
+  } catch {
+    // Preserve relative and non-WordPress image sources.
+  }
+  return src;
+}
 
 function decode(s: string) {
   return s
@@ -37,8 +69,22 @@ async function sanitize(html: string) {
     },
     allowedIframeHostnames: ["www.youtube.com", "www.youtube-nocookie.com", "player.vimeo.com"],
     transformTags: {
-      a: sanitizeHtml.simpleTransform("a", { rel: "noopener noreferrer" }),
-      img: sanitizeHtml.simpleTransform("img", { loading: "lazy" }),
+      a: (tagName, attribs) => ({
+        tagName,
+        attribs: { ...attribs, ...(attribs["href"] ? { href: publicLink(attribs["href"]) ?? "" } : {}), rel: "noopener noreferrer" },
+      }),
+      img: (tagName, attribs) => ({
+        tagName,
+        attribs: {
+          ...attribs,
+          ...(attribs["src"] ? { src: wpImageUrl(attribs["src"]) } : {}),
+          ...(attribs["srcset"] ? { srcset: attribs["srcset"].split(",").map((candidate) => {
+            const [src, ...descriptor] = candidate.trim().split(/\s+/);
+            return src ? [wpImageUrl(src), ...descriptor].join(" ") : candidate;
+          }).join(", ") } : {}),
+          loading: "lazy",
+        },
+      }),
     },
   });
 }
@@ -46,7 +92,6 @@ async function sanitize(html: string) {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function mapPost(p: any): Promise<BlogPost> {
   const media = p._embedded?.["wp:featuredmedia"]?.[0];
-  const author = p._embedded?.author?.[0];
   const url = media?.media_details?.sizes?.large?.source_url ?? media?.source_url;
   const excerptText = decode(p.excerpt?.rendered ?? "");
   return {
@@ -54,17 +99,19 @@ async function mapPost(p: any): Promise<BlogPost> {
     title: decode(p.title?.rendered ?? ""),
     excerpt: excerptText,
     content: await sanitize(p.content?.rendered ?? ""),
-    image: url ? { url, alt: media?.alt_text || "" } : null,
-    author: author?.name ? decode(author.name) : "Kelsey Creswell",
+    image: url ? { url: wpImageUrl(url), alt: media?.alt_text || "" } : null,
+    author: "Kelsey Creswell",
     authorLine: "Founder of Wild West Wags",
-    authorFooter: "",
-    metaDescription: excerptText.slice(0, 160),
+    authorFooter: "Written by Kelsey Creswell, founder of Wild West Wags | Certified Dog Trainer | Positive Reinforcement-Based Dog Walking & Training | North Vancouver, BC",
+    metaDescription: typeof p.meta?.advanced_seo_description === "string" && p.meta.advanced_seo_description.trim()
+      ? decode(p.meta.advanced_seo_description)
+      : excerptText.slice(0, 160),
     date: p.date ?? null,
   };
 }
 
 export async function wpListPosts(page: number): Promise<BlogListResult> {
-  const res = await fetch(`${API}/posts?_embed&per_page=${PER_PAGE}&page=${page}`).catch(() => null);
+  const res = await wpFetch(`/posts?_embed&per_page=${PER_PAGE}&page=${page}`).catch(() => null);
   if (!res) return { posts: [], totalPages: 0, error: true };
   if (res.status === 400 && page > 1) return { posts: [], totalPages: 1, error: false };
   if (!res.ok) {
@@ -80,7 +127,7 @@ export async function wpListPosts(page: number): Promise<BlogListResult> {
 }
 
 export async function wpGetPost(slug: string): Promise<BlogPostResult> {
-  const res = await fetch(`${API}/posts?slug=${encodeURIComponent(slug)}&_embed`).catch(() => null);
+  const res = await wpFetch(`/posts?slug=${encodeURIComponent(slug)}&_embed`).catch(() => null);
   if (!res) return { post: null, error: true };
   if (!res.ok) {
     console.error("WP post failed", res.status);

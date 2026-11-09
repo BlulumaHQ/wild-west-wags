@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LOCAL_POSTS } from "@/lib/blog/local";
-import { USE_WORDPRESS_BLOG, WORDPRESS_API_BASE } from "@/lib/blog";
+import { USE_WORDPRESS_BLOG } from "@/lib/blog/config";
+import { wpFetch } from "@/lib/blog/wordpress";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -10,7 +11,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const paths = ["/", "/about", "/services", "/blog", "/contact"];
         if (USE_WORDPRESS_BLOG) {
           try {
-            const r = await fetch(`${WORDPRESS_API_BASE}/posts?per_page=100&_fields=slug`);
+            const r = await wpFetch("/posts?per_page=100&_fields=slug");
             if (r.ok) for (const p of (await r.json()) as { slug: string }[]) paths.push(`/blog/${p.slug}`);
           } catch {
             /* CMS unavailable */

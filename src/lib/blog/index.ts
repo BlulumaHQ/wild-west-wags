@@ -3,14 +3,13 @@ import { z } from "zod";
 import { LOCAL_POSTS } from "./local";
 import { wpGetPost, wpListPosts } from "./wordpress";
 import type { BlogListResult, BlogPostResult } from "./types";
+import { USE_WORDPRESS_BLOG } from "./config";
+export { USE_WORDPRESS_BLOG, WORDPRESS_API_BASE } from "./config";
 
 /**
  * Blog provider selector. The UI only talks to listBlogPosts / getBlogPost,
  * so switching to Headless WordPress later is a one-line change here.
  */
-export const USE_WORDPRESS_BLOG = false;
-export const WORDPRESS_API_BASE = "https://cms.wildwestwags.ca/wp-json/wp/v2";
-
 const PER_PAGE = 12;
 
 export const listBlogPosts = createServerFn({ method: "GET" })

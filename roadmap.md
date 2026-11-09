@@ -9,3 +9,8 @@
 - [x] Replace descriptor imports and remove obsolete local descriptors without deleting hosted originals.
 - [x] Verify image integrity, all routes on desktop/mobile without Lovable asset endpoints, and tests/build signals.
 - [x] Commit the portability fix for GitHub deployment.
+
+# WordPress cutover
+- [x] Activate live CMS, fixed attribution, SEO meta and public-only content links.
+- [x] Verify live list, three slug reads, featured images, rendered pages and sitemap; run tests.
+- [x] Check build signals and commit for GitHub deployment.

@@ -10,3 +10,5 @@
 <!-- LOVABLE:END -->
 
 - Keep uploaded site images as committed real files in `public/assets` and reference `/assets/...` from runtime code so independent Cloudflare deployments do not require Lovable's asset proxy.
+- Share WordPress API configuration and public-fetch fallback between blog reads and sitemap; hosted WordPress.com may expose REST only through public-api.wordpress.com.
+- Map WordPress-hosted uploads to its i0.wp.com image CDN for featured and inline media; direct uploads can be blocked by browsers while the CDN serves the same images.
