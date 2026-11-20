@@ -17,7 +17,7 @@ type Service = { name: string; price: string; description: string; includes?: st
 const DOG_WALKING: Service[] = [
   {
     name: "Private Walks",
-    price: "45 min — $45 · 60 min — $50",
+    price: "45 min — $45 · 60 min — $55",
     description:
       "One-on-one walks tailored to your dog's energy, personality, and needs. A balance of exercise, exploration, enrichment, and personalized attention.",
   },

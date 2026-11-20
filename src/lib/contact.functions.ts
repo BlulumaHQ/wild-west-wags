@@ -54,8 +54,8 @@ export const sendInquiry = createServerFn({ method: "POST" })
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: process.env["RESEND_FROM"] ?? "Wild West Wags Website <onboarding@resend.dev>",
-        to: ["Hello@wildwestwags.ca"],
+        from: process.env["RESEND_FROM"] ?? "Wild West Wags Website <website@send.wildwestwags.ca>",
+        to: [process.env["RESEND_TO"] ?? "hello@wildwestwags.ca"],
         reply_to: data.email,
         subject: "New Wild West Wags Website Inquiry",
         html,
