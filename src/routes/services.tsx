@@ -6,7 +6,7 @@ export const Route = createFileRoute("/services")({
     pageHead({
       title: "Services + Pricing | Wild West Wags North Vancouver",
       description:
-        "Dog walking, skill-building walks, private training and pet sitting in North Vancouver. Private walks from $45, skill-building walks $75, training sessions $95.",
+        "Dog walking, skill-building walks, private training and pet sitting in North Vancouver. Private walks $55, skill-building walks $75, training sessions $95.",
       path: "/services",
     }),
   component: Services,
@@ -17,7 +17,7 @@ type Service = { name: string; price: string; description: string; includes?: st
 const DOG_WALKING: Service[] = [
   {
     name: "Private Walks",
-    price: "45 min — $45 · 60 min — $55",
+    price: "60 min — $55",
     description:
       "One-on-one walks tailored to your dog's energy, personality, and needs. A balance of exercise, exploration, enrichment, and personalized attention.",
   },
